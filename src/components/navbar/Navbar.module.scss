@@ -1,0 +1,34 @@
+.navbar {
+  background-color: white;
+  padding: 10px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 65px;
+
+}
+
+.logo {
+  width: 60px;
+  height: 30px;
+}
+
+.header {
+  margin: 0 0 0 30px;
+  color: #005aab;
+}
+
+.login {
+  margin-left: auto;
+}
+
+.registration {
+  margin-left: 15px;
+}
+
+a {
+  text-decoration: none;
+}
