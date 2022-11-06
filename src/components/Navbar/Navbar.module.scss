@@ -21,8 +21,13 @@
   color: #005aab;
 }
 
-.login {
+.login,
+.exit {
   margin-left: auto;
+}
+
+.exit {
+  cursor: pointer;
 }
 
 .registration {

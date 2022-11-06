@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import cl from './Auth.module.scss'
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE} from "../../constants/routes";
-import {registration} from "../../http/user";
+import {login, registration} from "../../http/user";
+import {useDispatch} from "react-redux";
 
 const Auth = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
     const isLogin = location.pathname === LOGIN_ROUTE;
 
     const [email, setEmail] = useState('');
@@ -15,7 +17,11 @@ const Auth = () => {
 
     const authorization = (e) => {
         e.preventDefault();
-        registration(email, password)
+        if (isLogin) {
+            dispatch(login(email, password));
+        } else {
+            registration(email, password)
+        }
         console.log(email, password)
     }
 

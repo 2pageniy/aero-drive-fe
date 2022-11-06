@@ -1,4 +1,4 @@
-import Navbar from "./navbar/Navbar";
+import Navbar from "./Navbar/Navbar";
 import cl from './App.module.scss'
 import {BrowserRouter} from "react-router-dom";
 import AppRoute from "./AppRoute";
