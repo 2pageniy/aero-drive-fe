@@ -22,7 +22,6 @@ const Auth = () => {
         } else {
             registration(email, password)
         }
-        console.log(email, password)
     }
 
     return (

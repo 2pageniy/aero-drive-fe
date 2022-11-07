@@ -1,0 +1,20 @@
+.disk {
+  margin: 20px 65px 0 65px;
+}
+
+.btns {
+  display: flex;
+
+  .create {
+    margin-left: 10px;
+  }
+
+  button {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #005aab;
+    background-color: white;
+  }
+}
+
