@@ -5,7 +5,6 @@ import File from "./File/File";
 
 const FileList = () => {
     const files = useSelector(state => state.file.files);
-    console.log(files)
 
     return (
         <div className={cl.file_list}>
