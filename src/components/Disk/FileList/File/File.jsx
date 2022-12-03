@@ -12,12 +12,14 @@ const File = ({file}) => {
     const date = file.createdAt.slice(0, 10)
 
     function openHandler() {
-        dispatch(pushToStackAction(currentDir))
-        dispatch(setCurrentDirAction(file.id))
+        if (file.type === 'dir') {
+            dispatch(pushToStackAction(currentDir))
+            dispatch(setCurrentDirAction(file.id))
+        }
     }
 
     return (
-        <div className={cl.file} onClick={ file.type === 'dir' ? () => openHandler() : ''}>
+        <div className={cl.file} onClick={() => openHandler(file)}>
             <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
             <div className={cl.name}>{name}</div>
             <div className={cl.date}>{date}</div>

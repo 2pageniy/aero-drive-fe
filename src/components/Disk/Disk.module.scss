@@ -9,6 +9,17 @@
     margin-left: 10px;
   }
 
+  .upload {
+    margin-left: 10px;
+
+    .label {
+      cursor: pointer;
+    }
+    .input {
+      display: none;
+    }
+  }
+
   button {
     cursor: pointer;
     padding: 5px;
@@ -18,3 +29,13 @@
   }
 }
 
+.dropArea {
+  width: 95%;
+  height: calc(100vh - 50px - 40px);
+  margin: 50px;
+  border: 2px dashed #005aab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+}

@@ -30,3 +30,36 @@ export function createDir(dirId, name) {
         }
     }
 }
+
+export function uploadFile(file, dirId) {
+    return async dispatch => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file)
+            if (dirId) {
+                formData.append('parent', dirId)
+            }
+            console.log(file.size)
+            $api.post(`file/upload`,
+                formData,
+                {
+                    onUploadProgress: progressEvent => {
+                        // counting the weight of the file
+                        // const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+                        const totalLength = file.size;
+                        console.log('total', totalLength)
+                        if (totalLength) {
+                            let progress = Math.round((progressEvent.loaded * 100) / totalLength)
+                            console.log(progress)
+                        }
+                    }
+                }
+            )
+                .then(response => response.data)
+                .then(data => dispatch(addFileAction(data)))
+
+        } catch (e) {
+            console.log(e.response.data)
+        }
+    }
+}
