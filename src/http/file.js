@@ -1,5 +1,6 @@
 import $api from './index'
 import {addFileAction, setFilesAction} from "../store/fileReducer";
+import axios from "axios";
 
 export function getFiles(dirId) {
     return async dispatch => {
@@ -61,5 +62,24 @@ export function uploadFile(file, dirId) {
         } catch (e) {
             console.log(e.response.data)
         }
+    }
+}
+
+export async function downloadFile(file) {
+    const response = await fetch(`http://localhost:5000/api/file/download?id=${file.id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+
+    if (response.status === 200) {
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     }
 }

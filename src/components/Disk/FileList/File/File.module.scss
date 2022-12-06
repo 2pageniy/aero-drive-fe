@@ -27,4 +27,35 @@
   &:hover {
     transform: scale(1.02);
   }
+
+  .download {
+    grid-column-start: 5;
+    justify-self: center;
+  }
+
+  .delete {
+    grid-column-start: 6;
+    justify-self: center;
+  }
+
+  button {
+    display: none;
+    border: 2px solid #005aab;
+    padding: 5px;
+    border-radius: 5px;
+
+  }
+
+  &:hover .size{
+    grid-column-start: 4;
+  }
+
+  &:hover .date{
+    grid-column-start: 3;
+  }
+
+  &:hover button{
+    display: block;
+    cursor: pointer;
+  }
 }
