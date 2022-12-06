@@ -1,6 +1,5 @@
 import $api from './index'
-import {addFileAction, setFilesAction} from "../store/fileReducer";
-import axios from "axios";
+import {addFileAction, deleteFileAction, setFilesAction} from "../store/fileReducer";
 
 export function getFiles(dirId) {
     return async dispatch => {
@@ -81,5 +80,17 @@ export async function downloadFile(file) {
         document.body.appendChild(link);
         link.click();
         link.remove();
+    }
+}
+
+export function deleteFile(file) {
+    return async dispatch => {
+        try {
+            const response = await $api.delete(`file/delete?id=${file.id}`);
+            dispatch(deleteFileAction(file.id));
+            alert(response.data.message)
+        } catch (e) {
+            console.log(e.response.data)
+        }
     }
 }

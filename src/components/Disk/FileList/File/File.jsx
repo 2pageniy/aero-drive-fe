@@ -4,7 +4,7 @@ import FolderIcon from '../../../../assets/img/folder-icon.png'
 import FileIcon from '../../../../assets/img/file-icon.png'
 import {useDispatch, useSelector} from "react-redux";
 import {pushToStackAction, setCurrentDirAction} from "../../../../store/fileReducer";
-import {downloadFile} from "../../../../http/file";
+import {deleteFile, downloadFile} from "../../../../http/file";
 
 const File = ({file}) => {
     const dispatch = useDispatch();
@@ -24,6 +24,11 @@ const File = ({file}) => {
         downloadFile(file)
     }
 
+    function deleteClickHandler(e) {
+        e.stopPropagation();
+        dispatch(deleteFile(file));
+    }
+
     return (
         <div className={cl.file} onClick={() => openHandler(file)}>
             <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
@@ -40,7 +45,7 @@ const File = ({file}) => {
                     Скачать
                 </button>
             }
-            <button className={cl.delete}>Удалить</button>
+            <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
         </div>
     );
 };
