@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './Disk.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {getFiles, uploadFile} from "../../http/file";
 import FileList from "./FileList/FileList";
 import Popup from "./Popup";
 import {setCurrentDirAction, setPopupDisplay} from "../../store/fileReducer";
+import Uploader from "./Uploader/Uploader";
 
 const Disk = () => {
     const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const Disk = () => {
             </div>
             <FileList/>
             <Popup/>
+            <Uploader/>
         </div>
             :
             <div
