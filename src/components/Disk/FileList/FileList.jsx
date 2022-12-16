@@ -6,6 +6,12 @@ import File from "./File/File";
 const FileList = () => {
     const files = useSelector(state => state.file.files);
 
+    if (!files.length) {
+        return (
+            <div className={cl['not-file']}>Файлы не найдены</div>
+        )
+    }
+
     return (
         <div className={cl.file_list}>
             <div className={cl.header}>

@@ -38,3 +38,22 @@
 a {
   text-decoration: none;
 }
+
+.search {
+  width: 200px;
+  height: 20px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #005aab;
+  margin-left: 30px;
+
+  &:focus {
+    border: 2px solid #008823;
+    outline: none;
+  }
+  &:hover {
+    border: 2px solid #008823;
+  }
+
+}

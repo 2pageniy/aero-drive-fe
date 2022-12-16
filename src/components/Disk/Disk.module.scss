@@ -5,12 +5,26 @@
 .btns {
   display: flex;
 
+
+
   .create {
     margin-left: 10px;
+    &:hover {
+      border: 2px solid #008823;
+    }
   }
+
+  .back:hover {
+      border: 2px solid #008823;
+  }
+
 
   .upload {
     margin-left: 10px;
+
+    &:hover {
+      border: 2px solid #008823;
+    }
 
     .label {
       cursor: pointer;
@@ -44,4 +58,10 @@
   margin-left: auto;
   border: 2px solid #005aab;
   border-radius: 5px;
+  &:focus {
+    border: 2px solid #008823;
+  }
+  &:hover {
+    border: 2px solid #008823;
+  }
 }

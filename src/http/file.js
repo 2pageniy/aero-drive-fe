@@ -111,3 +111,14 @@ export function deleteFile(file) {
         }
     }
 }
+
+export function searchFiles(search) {
+    return async dispatch => {
+        try {
+            const response = await $api.get(`file/search?search=${search}`);
+            dispatch(setFilesAction(response.data));
+        } catch (e) {
+            console.log(e.response.data)
+        }
+    }
+}
