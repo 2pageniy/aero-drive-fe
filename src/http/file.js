@@ -1,16 +1,31 @@
 import $api from './index'
 import {addFileAction, deleteFileAction, setFilesAction} from "../store/fileReducer";
 import {addUploadFileAction, changeUploadFileAction, showUploaderAction} from "../store/uploadReducer";
+import {hideLoaderAction, showLoaderAction} from "../store/appReducer";
 
-export function getFiles(dirId) {
+export function getFiles(dirId, sort) {
     return async dispatch => {
         try {
-            $api.get(`file${dirId ? '?parent=' + dirId : ''}`)
+            dispatch(showLoaderAction())
+            let url = 'file';
+            if (dirId) {
+                url = 'file?parent=' + dirId;
+            }
+            if (sort) {
+                url = `file?sort=${sort}`;
+            }
+            if (sort && dirId) {
+                url = `file?parent=${dirId}&sort=${sort}`;
+            }
+
+            $api.get(url)
                 .then(response => response.data)
                 .then(data => dispatch(setFilesAction(data)))
-
+                .finally(() => dispatch(hideLoaderAction()));
         } catch (e) {
             console.log(e.response.data)
+        } finally {
+            dispatch(hideLoaderAction())
         }
     }
 }

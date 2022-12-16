@@ -5,6 +5,7 @@ import FileIcon from '../../../../assets/img/file-icon.png'
 import {useDispatch, useSelector} from "react-redux";
 import {pushToStackAction, setCurrentDirAction} from "../../../../store/fileReducer";
 import {deleteFile, downloadFile} from "../../../../http/file";
+import sizeFormat from "../../../../utils/sizeFormat";
 
 const File = ({file}) => {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const File = ({file}) => {
             <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
             <div className={cl.name}>{name}</div>
             <div className={cl.date}>{date}</div>
-            <div className={cl.size}>{size}</div>
+            <div className={cl.size}>{sizeFormat(size)}</div>
             {
                 file.type !== 'dir'
                 &&

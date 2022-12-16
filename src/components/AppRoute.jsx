@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Routes, Navigate} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../constants/router";
-import {MAIN_ROUTE} from "../constants/routes";
+import {NOT_FOUND_ROUTE} from "../constants/routes";
 import {useSelector} from "react-redux";
 
 const AppRoute = () => {
@@ -28,10 +28,9 @@ const AppRoute = () => {
                     />
                 )
             }
-            {/*TODO 404*/}
             <Route
                 path='*'
-                element=<Navigate to={MAIN_ROUTE} replace />
+                element=<Navigate to={NOT_FOUND_ROUTE} replace />
             exact={false}
             />
         </Routes>

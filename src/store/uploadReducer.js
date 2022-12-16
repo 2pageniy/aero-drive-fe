@@ -10,7 +10,7 @@ const initialState = {
     files: [],
 }
 
-export default function authReducer(state = initialState, action) {
+export default function uploadReducer(state = initialState, action) {
     switch (action.type) {
         case SHOW_UPLOADER:
             return {...state, isVisible: true};
@@ -22,7 +22,7 @@ export default function authReducer(state = initialState, action) {
             return {...state, files: [...state.files, action.payload]}
 
         case REMOVE_UPLOAD_FILE:
-            return {...state, files: [...state.files.filter(file => file.id != action.payload)]}
+            return {...state, files: [...state.files.filter(file => file.id !== action.payload)]}
 
         case CHANGE_UPLOAD_FILE:
             return {

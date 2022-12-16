@@ -6,16 +6,19 @@ import FileList from "./FileList/FileList";
 import Popup from "./Popup";
 import {setCurrentDirAction, setPopupDisplay} from "../../store/fileReducer";
 import Uploader from "./Uploader/Uploader";
+import Loader from "../Loader/Loader";
 
 const Disk = () => {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.file.currentDir);
     const dirStack = useSelector(state => state.file.dirStack);
+    const loader = useSelector(state => state.app.loader);
     const [dragEnter, setDragEnter] = useState(false);
+    const [sort, setSort] = useState('type');
 
     useEffect(() => {
-        dispatch(getFiles(currentDir));
-    }, [currentDir])
+        dispatch(getFiles(currentDir, sort));
+    }, [currentDir, sort])
 
     function showPopupHandler() {
         dispatch(setPopupDisplay('flex'))
@@ -51,6 +54,12 @@ const Disk = () => {
         setDragEnter(false);
     }
 
+    if (loader) {
+        return (
+            <Loader />
+        )
+    }
+
     return ( !dragEnter ?
         <div className={cl.disk} onDragEnter={dragEnterHandler} onDragLeave={dragLeaveHandler} onDragOver={dragEnterHandler}>
             <div className={cl.btns}>
@@ -66,6 +75,11 @@ const Disk = () => {
                         className={cl.input}
                     />
                 </button>
+                <select value={sort} onChange={(e) => setSort(e.target.value)} className={cl.select}>
+                    <option value="name">По имени</option>
+                    <option value="type">По типу</option>
+                    <option value="date">По дате</option>
+                </select>
             </div>
             <FileList/>
             <Popup/>

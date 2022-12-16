@@ -1,26 +1,30 @@
 import React, {useState} from 'react';
 import cl from './Auth.module.scss'
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {LOGIN_ROUTE} from "../../constants/routes";
+import {DISK_ROUTE, LOGIN_ROUTE} from "../../constants/routes";
 import {login, registration} from "../../http/user";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {showLoaderAction} from "../../store/appReducer";
 
 const Auth = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
+    const loader = useSelector(state => state.app.loader);
+    const isAuth = useSelector(state => state.auth.isAuth);
     const isLogin = location.pathname === LOGIN_ROUTE;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
-    const authorization = (e) => {
+    const authorization = async (e) => {
+        dispatch(showLoaderAction());
         e.preventDefault();
-        if (isLogin) {
-            dispatch(login(email, password));
+        if (!isLogin) {
+            dispatch(registration(email, password, navigate))
         } else {
-            registration(email, password)
+            dispatch(login(email, password, navigate));
         }
     }
 
