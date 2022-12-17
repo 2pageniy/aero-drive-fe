@@ -45,7 +45,6 @@ export const auth = () => {
             $api.get('/user/auth')
                 .then(response => response.data)
                 .then(data => {
-                    console.log(data)
                     dispatch(loginAuthAction(data.user))
                     localStorage.setItem('token', data.token)
                 })

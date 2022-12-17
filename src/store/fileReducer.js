@@ -6,6 +6,7 @@ const PUSH_TO_STACK = 'PUSH_TO_STACK';
 const DELETE_FILE = 'DELETE_FILE';
 const SET_VIEW = 'SET_VIEW';
 const SET_FAVORITE = 'SET_FAVORITE';
+const SET_LINK = 'SET_LINK';
 
 const initialState = {
     files: [],
@@ -47,6 +48,15 @@ export default function fileReducer(state = initialState, action) {
                     }
                     return file
                 })]}
+        case SET_LINK:
+            return {...state, files: [...state.files.map((file => {
+                    if (file.id !== action.payload.id) {
+                        return file
+                    } else {
+                        file.access_link = action.payload.link;
+                        return file
+                    }
+                }))]}
 
         default:
             return state;
@@ -61,3 +71,4 @@ export const pushToStackAction = (dir) => ({type: PUSH_TO_STACK, payload: dir});
 export const deleteFileAction = (dirId) => ({type: DELETE_FILE, payload: dirId});
 export const setFileViewAction = (payload) => ({type: SET_VIEW, payload});
 export const setFavoriteAction = (id) => ({type: SET_FAVORITE, payload: id});
+export const setNewLinkAction = (id, link) => ({type: SET_LINK, payload: {id, link}});

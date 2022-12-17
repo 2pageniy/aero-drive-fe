@@ -37,12 +37,14 @@
 
 .group-btn {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
 
 
   button {
     display: block;
     font-size: 16px;
+    margin: 5px 2px;
   }
 
   button:hover {

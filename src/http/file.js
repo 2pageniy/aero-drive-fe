@@ -1,5 +1,11 @@
 import $api from './index'
-import {addFileAction, deleteFileAction, setFavoriteAction, setFilesAction} from "../store/fileReducer";
+import {
+    addFileAction,
+    deleteFileAction,
+    setFavoriteAction,
+    setFilesAction,
+    setNewLinkAction
+} from "../store/fileReducer";
 import {addUploadFileAction, changeUploadFileAction, showUploaderAction} from "../store/uploadReducer";
 import {hideLoaderAction, showLoaderAction} from "../store/appReducer";
 
@@ -62,8 +68,6 @@ export function uploadFile(file, dirId) {
                 formData,
                 {
                     onUploadProgress: (progressEvent) => {
-                        // counting the weight of the file\
-                        // const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
                         const totalLength = progressEvent.total;
                         if (totalLength) {
                             uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength)
@@ -160,5 +164,29 @@ export async function readFile(file) {
 
     } catch (e) {
         console.log(e.response.data)
+    }
+}
+
+export async function getFileOnLink(link) {
+    try {
+        return await $api.get(`file/link${link}`)
+            .catch(e => console.log(e));
+
+    } catch (e) {
+        console.log(e.response.data)
+    }
+}
+
+export function createLinkOnFile(file) {
+    return async dispatch => {
+        try {
+            return await $api.patch(`file/link`, {file})
+                .then((response) => response.data)
+                .then(data => dispatch(setNewLinkAction(file.id, data.link)))
+                .catch(e => console.log(e));
+
+        } catch (e) {
+            console.log(e.response.data)
+        }
     }
 }

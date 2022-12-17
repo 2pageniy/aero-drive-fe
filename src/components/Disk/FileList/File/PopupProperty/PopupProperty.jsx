@@ -2,10 +2,14 @@ import React, {useState} from 'react';
 import cl from './PopupProperty.module.scss'
 import iconCancel from '../../../../../assets/img/icon-cancel.png'
 import {useDispatch} from "react-redux";
-import {createCopyFile, readFile} from "../../../../../http/file";
+import {createCopyFile, createLinkOnFile, readFile} from "../../../../../http/file";
+import {useLocation} from "react-router-dom";
+import {LINK_ROUTE} from "../../../../../constants/routes";
 
 const PopupProperty = ({file, close}) => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const isLink = location.pathname === LINK_ROUTE;
     const [watchFile, setWatchFile] = useState(false);
     const [contentFile, setContentFile] = useState('');
 
@@ -19,6 +23,10 @@ const PopupProperty = ({file, close}) => {
         readFile(file).then(data => setContentFile(data.data))
     }
 
+    const createLink = () => {
+        dispatch(createLinkOnFile(file))
+    }
+
     return (
         <div className={cl.popup} onClick={close}>
             <div className={cl.modal} onClick={e => e.stopPropagation()}>
@@ -30,11 +38,16 @@ const PopupProperty = ({file, close}) => {
                     </div>
                 ))}
                 <div className={cl['group-btn']}>
-                    <button>Переименовать</button>
+                    {isLink ||
+                        <>
+                            <button>Переименовать</button>
+                            <button onClick={copyFile}>Создать копию</button>
+                            <button onClick={createLink}>{file.access_link ? 'Обновить ссылку' : 'Создать ссылку'}</button>
+                        </>
+                    }
                     {file.type === 'txt' &&
                         <button onClick={clickWatch}>Посмотреть</button>
                     }
-                    <button onClick={copyFile}>Создать копию</button>
                 </div>
             </div>
             {watchFile &&

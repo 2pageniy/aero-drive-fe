@@ -9,11 +9,14 @@ import sizeFormat from "../../../../utils/sizeFormat";
 import heartIcon from '../../../../assets/img/heart-icon.png'
 import heartFullIcon from '../../../../assets/img/heart-full-icon.png'
 import PopupProperty from "./PopupProperty/PopupProperty";
+import {useLocation} from "react-router-dom";
+import {LINK_ROUTE} from "../../../../constants/routes";
 
 const File = ({file}) => {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.file.currentDir);
     const {name, size, type} = file;
+    const location = useLocation();
     const date = file.createdAt.slice(0, 10)
     const fileView = useSelector(state => state.file.view);
     const isFavorite = file.favorite;
@@ -49,6 +52,30 @@ const File = ({file}) => {
     const closePopupProperty = () => {
         setPopupProperty(false);
     }
+
+    if (location.pathname === LINK_ROUTE) {
+        return (
+            <div className={cl.file} onClick={() => openHandler(file)}>
+                <img src={FileIcon} width='40px' alt="" className={cl.img}/>
+                <div className={cl.name}>{name}</div>
+                <div className={cl.date}>{date}</div>
+                <div className={cl.size}>{sizeFormat(size)}</div>
+                <button
+                    className={cl.download}
+                    onClick={downloadClickHandler}
+                >
+                    Скачать
+                </button>
+                <button className={cl.property} onClick={showPopupProperty}>
+                    Свойства
+                </button>
+                {popupProperty &&
+                    <PopupProperty file={file} close={closePopupProperty}/>
+                }
+            </div>
+        )
+    }
+
 
     if (fileView === 'plate') {
         return (
