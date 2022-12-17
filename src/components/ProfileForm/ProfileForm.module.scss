@@ -1,0 +1,74 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  margin: 20px auto;
+  padding-left: 250px;
+}
+
+.input {
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+
+  &:hover {
+    border: 2px solid #009300;
+  }
+
+  &:focus {
+    border: 2px solid #009300;
+    outline: none;
+  }
+
+}
+
+.password .input:hover {
+  cursor: pointer;
+}
+
+.avatar-input {
+  display: none;
+}
+
+
+.label {
+  margin-right: 10px;
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #009300;
+  }
+}
+
+.delete {
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  padding: 2px;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid #b60000;
+  }
+}
+
+.field {
+  padding: 15px;
+  border-bottom: 1px solid black;
+  border-left: 2px solid black;
+}
+
+.submit {
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    border: 2px solid #009300;
+  }
+}

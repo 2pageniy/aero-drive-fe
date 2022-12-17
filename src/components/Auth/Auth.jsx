@@ -22,7 +22,7 @@ const Auth = () => {
         dispatch(showLoaderAction());
         e.preventDefault();
         if (!isLogin) {
-            dispatch(registration(email, password, navigate))
+            dispatch(registration(name, email, password, navigate))
         } else {
             dispatch(login(email, password, navigate));
         }
