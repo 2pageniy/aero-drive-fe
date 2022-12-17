@@ -4,7 +4,7 @@
 
 .btns {
   display: flex;
-
+  align-items: center;
 
 
   .create {
@@ -41,6 +41,27 @@
     border: 2px solid #005aab;
     background-color: white;
   }
+
+  .plate,
+  .list {
+    height: 20px;
+    width: 20px;
+    border: none;
+    outline: none;
+    border-radius: 0;
+    cursor: pointer;
+    background: no-repeat center center;
+    background-size: contain;
+    margin: 0 10px;
+  }
+
+  .plate {
+    background-image: url("../../assets/img/tile.png");
+  }
+
+  .list {
+    background-image: url("../../assets/img/hamburger.png");
+  }
 }
 
 .dropArea {
@@ -65,3 +86,4 @@
     border: 2px solid #008823;
   }
 }
+

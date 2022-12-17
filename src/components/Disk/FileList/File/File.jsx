@@ -12,6 +12,7 @@ const File = ({file}) => {
     const currentDir = useSelector(state => state.file.currentDir);
     const {name, size, type} = file;
     const date = file.createdAt.slice(0, 10)
+    const fileView = useSelector(state => state.file.view);
 
     function openHandler() {
         if (file.type === 'dir') {
@@ -30,25 +31,46 @@ const File = ({file}) => {
         dispatch(deleteFile(file));
     }
 
-    return (
-        <div className={cl.file} onClick={() => openHandler(file)}>
-            <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
-            <div className={cl.name}>{name}</div>
-            <div className={cl.date}>{date}</div>
-            <div className={cl.size}>{sizeFormat(size)}</div>
-            {
-                file.type !== 'dir'
-                &&
-                <button
-                    className={cl.download}
-                    onClick={downloadClickHandler}
-                >
-                    Скачать
-                </button>
-            }
-            <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
-        </div>
-    );
+    if (fileView === 'plate') {
+        return (
+            <div className={cl['file-plate']} onClick={() => openHandler(file)}>
+                <img src={type === 'dir' ? FolderIcon : FileIcon} width='70px' alt="" className={cl.img}/>
+                <div className={cl.name}>{name}</div>
+                <div className={cl.btns}>
+                    {file.type !== 'dir' &&
+                        <button
+                            className={cl.download}
+                            onClick={downloadClickHandler}
+                        >
+                            Скачать
+                        </button>
+                    }
+                    <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
+                </div>
+
+            </div>
+        )
+    }
+
+    if (fileView === 'list') {
+        return (
+            <div className={cl.file} onClick={() => openHandler(file)}>
+                <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
+                <div className={cl.name}>{name}</div>
+                <div className={cl.date}>{date}</div>
+                <div className={cl.size}>{sizeFormat(size)}</div>
+                {file.type !== 'dir' &&
+                    <button
+                        className={cl.download}
+                        onClick={downloadClickHandler}
+                    >
+                        Скачать
+                    </button>
+                }
+                <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
+            </div>
+        );
+    }
 };
 
 export default File;
