@@ -136,5 +136,29 @@ export function changeFavoriteFile(file) {
             console.log(e.response.data)
         }
     }
+}
 
+export function createCopyFile(file) {
+    return async dispatch => {
+        try {
+            await $api.post(`file/copy`, {file})
+                .then(response => response.data)
+                .then(data => dispatch(addFileAction(data)))
+                .catch(e => console.log(e));
+
+        } catch (e) {
+            console.log(e.response.data)
+        }
+    }
+}
+
+export async function readFile(file) {
+    try {
+        return await $api.post(`file/read`, {file})
+            .then(response => response.data)
+            .catch(e => console.log(e));
+
+    } catch (e) {
+        console.log(e.response.data)
+    }
 }

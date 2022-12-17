@@ -1,0 +1,79 @@
+.popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal {
+  position: relative;
+  width: 450px;
+  height: 350px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #005aab;
+  overflow-y: scroll;
+
+  .icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+}
+
+.property {
+  margin-bottom: 10px;
+}
+
+.group-btn {
+  display: flex;
+  justify-content: space-between;
+
+
+  button {
+    display: block;
+    font-size: 16px;
+  }
+
+  button:hover {
+    border: 2px solid #009300;
+  }
+}
+
+.watch {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  border-radius: 5px;
+  width: 450px;
+  height: 350px;
+  padding: 20px;
+  overflow: scroll;
+
+  .icon {
+    display: block;
+    margin-left: 420px;
+    position: fixed;
+    cursor: pointer;
+  }
+
+  .content {
+    margin-top: 10px;
+  }
+}
+
+button {
+  border: 2px solid #005aab;
+  padding: 5px;
+  border-radius: 5px;
+}

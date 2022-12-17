@@ -42,10 +42,6 @@
     justify-self: center;
   }
 
-  &:hover {
-    transform: scale(1.02);
-  }
-
   .download {
     grid-column-start: 5;
     justify-self: center;
@@ -84,6 +80,16 @@
     display: block;
     cursor: pointer;
   }
+  .property {
+    position: absolute;
+    top: 5px;
+    left: 25%;
+
+    &:hover {
+      border: 2px solid #009300;
+    }
+  }
+
 }
 
 .file-plate {
@@ -145,8 +151,14 @@
   }
 
   .download {
+    margin-right: 3px;
     &:hover {
       border: 2px solid #008823;
     }
   }
+
+  .property:hover {
+    border: 2px solid #009300;
+  }
 }
+

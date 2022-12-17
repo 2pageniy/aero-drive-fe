@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import cl from './ProfileForm.module.scss';
-import {deleteAvatar, updateUser, uploadAvatar} from "../../http/user";
+import {deleteAvatar, deleteUser, updateUser, uploadAvatar} from "../../http/user";
 import {useDispatch, useSelector} from "react-redux";
 import PopupPassword from "./PopupPassword/PopupPassword";
+import {useNavigate} from "react-router-dom";
 
 const ProfileForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(state => state.auth.user);
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -26,6 +28,15 @@ const ProfileForm = () => {
 
     const hidePopup = () => {
         setPopup(false);
+    }
+
+    const removeHandler = () => {
+        console.log(user)
+        if (user.roles.includes('admin')) {
+            dispatch(deleteUser(navigate));
+        } else {
+            dispatch(deleteUser(user.id, navigate));
+        }
     }
 
     return (
@@ -56,12 +67,15 @@ const ProfileForm = () => {
                 <button className={cl.delete} onClick={() => dispatch(deleteAvatar())}>Удалить</button>
 
             </div>
-            <div className={cl['save', 'field']}>
+            <div className={cl.field}>
                 <button type='submit' className={cl.submit} onClick={saveHandler}>Сохранить</button>
             </div>
             {popup &&
                 <PopupPassword hidePopup={hidePopup}/>
             }
+            <div className={cl.field}>
+                <button className={cl.danger} onClick={removeHandler}>Удалить свой профиль</button>
+            </div>
         </div>
     );
 };

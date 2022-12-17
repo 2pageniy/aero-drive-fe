@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import cl from './File.module.scss'
 import FolderIcon from '../../../../assets/img/folder-icon.png'
 import FileIcon from '../../../../assets/img/file-icon.png'
@@ -8,6 +8,7 @@ import {changeFavoriteFile, deleteFile, downloadFile} from "../../../../http/fil
 import sizeFormat from "../../../../utils/sizeFormat";
 import heartIcon from '../../../../assets/img/heart-icon.png'
 import heartFullIcon from '../../../../assets/img/heart-full-icon.png'
+import PopupProperty from "./PopupProperty/PopupProperty";
 
 const File = ({file}) => {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const File = ({file}) => {
     const fileView = useSelector(state => state.file.view);
     const isFavorite = file.favorite;
     const iconHeart = isFavorite ? heartFullIcon : heartIcon;
+    const [popupProperty, setPopupProperty] = useState(false);
 
     const openHandler = () => {
         if (file.type === 'dir') {
@@ -38,7 +40,14 @@ const File = ({file}) => {
     const favoriteHandler = (e) => {
         e.stopPropagation();
         dispatch(changeFavoriteFile(file))
+    }
 
+    const showPopupProperty = () => {
+        setPopupProperty(true);
+    }
+
+    const closePopupProperty = () => {
+        setPopupProperty(false);
     }
 
     if (fileView === 'plate') {
@@ -55,16 +64,23 @@ const File = ({file}) => {
                 <div className={cl.name}>{name}</div>
                 <div className={cl.btns}>
                     {file.type !== 'dir' &&
-                        <button
-                            className={cl.download}
-                            onClick={downloadClickHandler}
-                        >
-                            Скачать
-                        </button>
+                        <>
+                            <button
+                                className={cl.download}
+                                onClick={downloadClickHandler}
+                            >
+                                Скачать
+                            </button>
+                            <button  className={cl.property}  onClick={showPopupProperty}>
+                                Свойства
+                            </button>
+                        </>
                     }
                     <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
                 </div>
-
+                {popupProperty &&
+                    <PopupProperty file={file} close={closePopupProperty}/>
+                }
             </div>
         )
     }
@@ -92,6 +108,14 @@ const File = ({file}) => {
                     </button>
                 }
                 <button className={cl.delete} onClick={deleteClickHandler}>Удалить</button>
+                {file.type !== 'dir' &&
+                    <button className={cl.property} onClick={showPopupProperty}>
+                        Свойства
+                    </button>
+                }
+                {popupProperty &&
+                    <PopupProperty file={file} close={closePopupProperty}/>
+                }
             </div>
         );
     }

@@ -1,7 +1,7 @@
 import $api from "./index";
-import {loginAuthAction} from "../store/authReducer";
+import {loginAuthAction, logoutAuthAction} from "../store/authReducer";
 import {hideLoaderAction, showLoaderAction} from "../store/appReducer";
-import {DISK_ROUTE} from "../constants/routes";
+import {DISK_ROUTE, MAIN_ROUTE} from "../constants/routes";
 
 export const registration = (name, email, password, navigate) => {
     return async dispatch => {
@@ -45,6 +45,7 @@ export const auth = () => {
             $api.get('/user/auth')
                 .then(response => response.data)
                 .then(data => {
+                    console.log(data)
                     dispatch(loginAuthAction(data.user))
                     localStorage.setItem('token', data.token)
                 })
@@ -114,4 +115,20 @@ export const updateUserPassword = (password, newPassword, hidePopup) => {
     } catch (e) {
         console.log(e);
     }
+}
+
+export const deleteUser = (id, navigate) => {
+    return async dispatch => {
+        try {
+            return $api.delete(`/user/delete?id=${id}`)
+                .then(() => {
+                    localStorage.removeItem('token');
+                    dispatch(logoutAuthAction());
+                }).then(() => navigate(MAIN_ROUTE))
+                .catch(e => alert('Ошибка удаления пользователя'))
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 }

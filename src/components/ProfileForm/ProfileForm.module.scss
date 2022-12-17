@@ -70,3 +70,15 @@
     border: 2px solid #009300;
   }
 }
+
+.danger {
+  margin-top: 40px;
+  border: 2px solid red;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: red;
+    color: white;
+  }
+}
