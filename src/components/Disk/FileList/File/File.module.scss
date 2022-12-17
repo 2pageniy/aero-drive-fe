@@ -1,9 +1,27 @@
 .file {
+  position: relative;
   margin: 10px 0;
   border-bottom: 2px solid gray;
   display: grid;
   grid-template-columns: 1fr 4fr repeat(4, 1fr);
   align-items: center;
+
+  &:hover .favorite-false {
+    display: block;
+  }
+
+  .favorite-false {
+    position: absolute;
+    display: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .favorite-true {
+    position: absolute;
+    display: block;
+  }
 
   .img {
     justify-self: center;
@@ -69,6 +87,7 @@
 }
 
 .file-plate {
+  position: relative;
   width: 150px;
   height: 150px;
   cursor: pointer;
@@ -76,9 +95,31 @@
   flex-direction: column;
   align-items: center;
 
-  .imt {
-    height: 100px;
-    width: 100px;
+  &:hover .favorite-false {
+    display: block;
+  }
+
+  .favorite-false {
+    position: absolute;
+    bottom: 70px;
+    right: 20px;
+
+    display: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .favorite-true {
+    position: absolute;
+    display: block;
+    bottom: 70px;
+    right: 20px;
+  }
+
+  .img {
+    height: 70px;
+    width: 70px;
   }
 
   .btns {

@@ -1,5 +1,5 @@
 import $api from './index'
-import {addFileAction, deleteFileAction, setFilesAction} from "../store/fileReducer";
+import {addFileAction, deleteFileAction, setFavoriteAction, setFilesAction} from "../store/fileReducer";
 import {addUploadFileAction, changeUploadFileAction, showUploaderAction} from "../store/uploadReducer";
 import {hideLoaderAction, showLoaderAction} from "../store/appReducer";
 
@@ -121,4 +121,20 @@ export function searchFiles(search) {
             console.log(e.response.data)
         }
     }
+}
+
+export function changeFavoriteFile(file) {
+    return async dispatch => {
+        try {
+            await $api.patch(`file/favorite`, {file})
+                .then((response) => {
+                    console.log(1)
+                    dispatch(setFavoriteAction(file.id));
+                }).catch(e => console.log(e));
+
+        } catch (e) {
+            console.log(e.response.data)
+        }
+    }
+
 }

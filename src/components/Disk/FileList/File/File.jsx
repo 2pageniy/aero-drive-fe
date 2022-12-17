@@ -4,8 +4,10 @@ import FolderIcon from '../../../../assets/img/folder-icon.png'
 import FileIcon from '../../../../assets/img/file-icon.png'
 import {useDispatch, useSelector} from "react-redux";
 import {pushToStackAction, setCurrentDirAction} from "../../../../store/fileReducer";
-import {deleteFile, downloadFile} from "../../../../http/file";
+import {changeFavoriteFile, deleteFile, downloadFile} from "../../../../http/file";
 import sizeFormat from "../../../../utils/sizeFormat";
+import heartIcon from '../../../../assets/img/heart-icon.png'
+import heartFullIcon from '../../../../assets/img/heart-full-icon.png'
 
 const File = ({file}) => {
     const dispatch = useDispatch();
@@ -13,27 +15,42 @@ const File = ({file}) => {
     const {name, size, type} = file;
     const date = file.createdAt.slice(0, 10)
     const fileView = useSelector(state => state.file.view);
+    const isFavorite = file.favorite;
+    const iconHeart = isFavorite ? heartFullIcon : heartIcon;
 
-    function openHandler() {
+    const openHandler = () => {
         if (file.type === 'dir') {
             dispatch(pushToStackAction(currentDir))
             dispatch(setCurrentDirAction(file.id))
         }
     }
 
-    function downloadClickHandler(e) {
+    const downloadClickHandler = (e) => {
         e.stopPropagation();
         downloadFile(file)
     }
 
-    function deleteClickHandler(e) {
+    const deleteClickHandler = (e) => {
         e.stopPropagation();
         dispatch(deleteFile(file));
+    }
+
+    const favoriteHandler = (e) => {
+        e.stopPropagation();
+        dispatch(changeFavoriteFile(file))
+
     }
 
     if (fileView === 'plate') {
         return (
             <div className={cl['file-plate']} onClick={() => openHandler(file)}>
+                <img
+                    src={iconHeart}
+                    alt='heart'
+                    width='25px'
+                    className={cl[`favorite-${isFavorite}`]}
+                    onClick={favoriteHandler}
+                />
                 <img src={type === 'dir' ? FolderIcon : FileIcon} width='70px' alt="" className={cl.img}/>
                 <div className={cl.name}>{name}</div>
                 <div className={cl.btns}>
@@ -55,6 +72,13 @@ const File = ({file}) => {
     if (fileView === 'list') {
         return (
             <div className={cl.file} onClick={() => openHandler(file)}>
+                <img
+                    src={iconHeart}
+                    alt='heart'
+                    width='25px'
+                    className={cl[`favorite-${isFavorite}`]}
+                    onClick={favoriteHandler}
+                />
                 <img src={type === 'dir' ? FolderIcon : FileIcon} width='40px' alt="" className={cl.img}/>
                 <div className={cl.name}>{name}</div>
                 <div className={cl.date}>{date}</div>

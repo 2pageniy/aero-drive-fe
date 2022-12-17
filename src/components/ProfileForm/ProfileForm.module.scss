@@ -2,9 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 70%;
+  width: 450px;
   margin: 20px auto;
-  padding-left: 250px;
 }
 
 .input {
@@ -59,7 +58,6 @@
 .field {
   padding: 15px;
   border-bottom: 1px solid black;
-  border-left: 2px solid black;
 }
 
 .submit {

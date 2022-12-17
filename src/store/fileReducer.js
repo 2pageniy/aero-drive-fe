@@ -5,6 +5,7 @@ const SET_POPUP_DISPLAY = 'SET_POPUP_DISPLAY';
 const PUSH_TO_STACK = 'PUSH_TO_STACK';
 const DELETE_FILE = 'DELETE_FILE';
 const SET_VIEW = 'SET_VIEW';
+const SET_FAVORITE = 'SET_FAVORITE';
 
 const initialState = {
     files: [],
@@ -37,6 +38,16 @@ export default function fileReducer(state = initialState, action) {
         case SET_VIEW:
             return {...state, view: action.payload}
 
+        case SET_FAVORITE:
+            return {
+                ...state,
+                files: [...state.files.map((file) => {
+                    if (file.id === action.payload) {
+                        file.favorite = !file.favorite;
+                    }
+                    return file
+                })]}
+
         default:
             return state;
     }
@@ -49,3 +60,4 @@ export const setPopupDisplay = (display) => ({type: SET_POPUP_DISPLAY, payload: 
 export const pushToStackAction = (dir) => ({type: PUSH_TO_STACK, payload: dir});
 export const deleteFileAction = (dirId) => ({type: DELETE_FILE, payload: dirId});
 export const setFileViewAction = (payload) => ({type: SET_VIEW, payload});
+export const setFavoriteAction = (id) => ({type: SET_FAVORITE, payload: id});
