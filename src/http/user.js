@@ -116,18 +116,30 @@ export const updateUserPassword = (password, newPassword, hidePopup) => {
     }
 }
 
-export const deleteUser = (id, navigate) => {
+export const deleteUser = (id, userId, navigate) => {
     return async dispatch => {
         try {
-            return $api.delete(`/user/delete?id=${id}`)
+             $api.delete(`/user/delete?id=${id}`)
                 .then(() => {
-                    localStorage.removeItem('token');
-                    dispatch(logoutAuthAction());
-                }).then(() => navigate(MAIN_ROUTE))
+                    if (userId === id) {
+                        localStorage.removeItem('token');
+                        dispatch(logoutAuthAction());
+                    }
+                }).then(() => userId === id && navigate(MAIN_ROUTE))
                 .catch(e => alert('Ошибка удаления пользователя'))
         } catch (e) {
             console.log(e);
         }
     }
+}
 
+export const getAllUsers = (setUsers) => {
+    try {
+        return $api.get(`/user/users`)
+            .then((response) => response.data)
+            .then((data) => setUsers(data))
+            .catch(e => alert('Нет доступа'))
+    } catch (e) {
+        console.log(e);
+    }
 }

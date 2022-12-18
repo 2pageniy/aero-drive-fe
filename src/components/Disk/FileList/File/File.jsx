@@ -15,6 +15,7 @@ import {LINK_ROUTE} from "../../../../constants/routes";
 const File = ({file}) => {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.file.currentDir);
+    const dirPath = useSelector(state => state.file.dirPath);
     const {name, size, type} = file;
     const location = useLocation();
     const date = file.createdAt.slice(0, 10)
@@ -23,9 +24,10 @@ const File = ({file}) => {
     const iconHeart = isFavorite ? heartFullIcon : heartIcon;
     const [popupProperty, setPopupProperty] = useState(false);
 
+
     const openHandler = () => {
         if (file.type === 'dir') {
-            dispatch(pushToStackAction(currentDir))
+            dispatch(pushToStackAction(currentDir, file.path))
             dispatch(setCurrentDirAction(file.id))
         }
     }

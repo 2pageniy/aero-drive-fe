@@ -132,7 +132,6 @@ export function changeFavoriteFile(file) {
         try {
             await $api.patch(`file/favorite`, {file})
                 .then((response) => {
-                    console.log(1)
                     dispatch(setFavoriteAction(file.id));
                 }).catch(e => console.log(e));
 

@@ -28,8 +28,6 @@ const Link = () => {
         return <Loader />
     }
 
-
-
     return (
         <div style={{marginTop: '20px'}}>
             <File file={file} />

@@ -4,14 +4,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {getFiles, uploadFile} from "../../http/file";
 import FileList from "./FileList/FileList";
 import Popup from "./Popup";
-import {setCurrentDirAction, setFileViewAction, setPopupDisplay} from "../../store/fileReducer";
+import {popToStackAction, setCurrentDirAction, setFileViewAction, setPopupDisplay} from "../../store/fileReducer";
 import Uploader from "./Uploader/Uploader";
 import Loader from "../Loader/Loader";
+import pathFormat from "../../utils/pathFormat";
 
 const Disk = () => {
     const dispatch = useDispatch();
     const currentDir = useSelector(state => state.file.currentDir);
     const dirStack = useSelector(state => state.file.dirStack);
+    const dirPath = useSelector(state => state.file.dirPath);
     const loader = useSelector(state => state.app.loader);
     const [dragEnter, setDragEnter] = useState(false);
     const [sort, setSort] = useState('type');
@@ -26,6 +28,9 @@ const Disk = () => {
 
     function backClickHandler() {
         const backDirId = dirStack.pop();
+        const splitDirPath = dirPath.split('\\');
+        const newPath = splitDirPath.splice(0, splitDirPath.length - 1).join('\\');
+        dispatch(popToStackAction(newPath || ''))
         dispatch(setCurrentDirAction(backDirId))
     }
 
@@ -83,6 +88,9 @@ const Disk = () => {
                 <button className={cl.plate} onClick={() => dispatch(setFileViewAction('plate'))} />
                 <button className={cl.list} onClick={() => dispatch(setFileViewAction('list'))} />
             </div>
+            <p>
+                Мой диск > {pathFormat(dirPath)}
+            </p>
             <FileList/>
             <Popup/>
             <Uploader/>

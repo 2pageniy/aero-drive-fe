@@ -4,7 +4,7 @@ import {
     MAIN_ROUTE,
     PROFILE_ROUTE,
     REGISTRATION_ROUTE,
-    NOT_FOUND_ROUTE, LINK_ROUTE
+    NOT_FOUND_ROUTE, LINK_ROUTE, USERS_ROUTE
 } from "./routes";
 import Login from "../pages/Login";
 import Registration from "../pages/Registration";
@@ -13,6 +13,7 @@ import Profile from "../pages/Profile";
 import Disk from "../components/Disk/Disk";
 import NotFound from "../pages/NotFound";
 import Link from "../pages/Link";
+import Users from "../pages/Users";
 
 export const publicRoutes = [
     {path: MAIN_ROUTE, element: <Main/>, exact: false},
@@ -28,3 +29,8 @@ export const privateRoutes = [
     {path: LINK_ROUTE, element: <Link/>, exact: false},
     {path: NOT_FOUND_ROUTE, element: <NotFound/>, exact: false},
 ];
+
+export const adminRoutes = [
+    ...privateRoutes,
+    {path: USERS_ROUTE, element: <Users />, exact: false},
+]

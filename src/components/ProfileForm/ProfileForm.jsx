@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import cl from './ProfileForm.module.scss';
-import {deleteAvatar, deleteUser, updateUser, uploadAvatar} from "../../http/user";
+import {deleteAvatar, deleteUser, getAllUsers, updateUser, uploadAvatar} from "../../http/user";
 import {useDispatch, useSelector} from "react-redux";
 import PopupPassword from "./PopupPassword/PopupPassword";
-import {useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import {USERS_ROUTE} from "../../constants/routes";
 
 const ProfileForm = () => {
     const dispatch = useDispatch();
@@ -31,15 +32,17 @@ const ProfileForm = () => {
     }
 
     const removeHandler = () => {
-        console.log(user)
-        if (user.roles.includes('admin')) {
-            dispatch(deleteUser(navigate));
-        } else {
-            dispatch(deleteUser(user.id, navigate));
+        if (!user.roles.includes('admin')) {
+            dispatch(deleteUser(user.id, user.id, navigate));
         }
     }
 
+    const getUsers = () => {
+        navigate(USERS_ROUTE);
+    }
+
     return (
+        <div className={cl.wrapper}>
         <div className={cl.profile}>
             <div className={cl['field']}>
                 <p>Имя:</p>
@@ -65,7 +68,6 @@ const ProfileForm = () => {
                     placeholder='Загрузить аватар'
                 />
                 <button className={cl.delete} onClick={() => dispatch(deleteAvatar())}>Удалить</button>
-
             </div>
             <div className={cl.field}>
                 <button type='submit' className={cl.submit} onClick={saveHandler}>Сохранить</button>
@@ -76,6 +78,14 @@ const ProfileForm = () => {
             <div className={cl.field}>
                 <button className={cl.danger} onClick={removeHandler}>Удалить свой профиль</button>
             </div>
+        </div>
+        {user.roles.includes('admin') &&
+            <NavLink to={USERS_ROUTE} className={cl['wrapper-btn']}>
+                <button className={cl['watch-user']} onClick={getUsers}>
+                    Посмотреть всех пользователей.
+                </button>
+            </NavLink>
+        }
         </div>
     );
 };

@@ -36,6 +36,9 @@
 
 a {
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .link-profile {
@@ -48,6 +51,18 @@ a {
 
 .avatar {
   border-radius: 50%;
+}
+
+.name {
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: black;
+
+  &:hover {
+    color: #005aab;
+  }
 }
 
 .search {

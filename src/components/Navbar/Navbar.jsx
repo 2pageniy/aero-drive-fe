@@ -56,6 +56,7 @@ const Navbar = () => {
                 {isAuth ?
                     <>
                         <NavLink className={cl['link-profile']} to={PROFILE_ROUTE}>
+                            <span className={cl.name}>{user.name}</span>
                             <img className={cl.avatar} src={avatar} alt="avatar" width="35px" height="35px" />
                         </NavLink>
                         <div className={cl.exit} onClick={logout}>Выход</div>

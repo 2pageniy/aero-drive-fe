@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   width: 450px;
-  margin: 20px auto;
+  margin: 20px 0;
 }
 
 .input {
@@ -80,5 +80,25 @@
   &:hover {
     background-color: red;
     color: white;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.wrapper-btn {
+  margin-top: 75px;
+  margin-left: 20px;
+}
+
+.watch-user {
+  cursor: pointer;
+  font-size: 16px;
+
+  &:hover {
+    border: 2px solid #009300;
   }
 }
