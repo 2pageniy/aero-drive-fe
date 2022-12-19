@@ -7,6 +7,7 @@ import React, {useEffect} from "react";
 import {auth} from "../http/user";
 import Loader from "./Loader/Loader";
 import {hideLoaderAction} from "../store/appReducer";
+import bg from '../assets/img/bg-main.png';
 
 function App() {
     const dispatch = useDispatch();

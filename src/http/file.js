@@ -189,3 +189,18 @@ export function createLinkOnFile(file) {
         }
     }
 }
+
+export async function renameFile(file, newName) {
+    try {
+        return await $api.patch(`file/rename`, {file, name: newName})
+            .then((response) => response.data)
+            .then(data => {
+                file.name = data.file.name
+                file.path = data.file.path
+            })
+            .catch(e => console.log(e));
+
+    } catch (e) {
+        console.log(e.response.data)
+    }
+}

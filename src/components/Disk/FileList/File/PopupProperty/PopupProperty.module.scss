@@ -79,3 +79,47 @@ button {
   padding: 5px;
   border-radius: 5px;
 }
+
+.wrapper-rename {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.rename {
+  position: absolute;
+  z-index: 5;
+  background-color: white;
+  width: 300px;
+  height: 120px;
+  padding: 20px;
+  border: 2px solid #005aab;
+  border-radius: 5px;
+}
+
+.input-rename {
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+
+  &:hover {
+    border: 2px solid #009300;
+  }
+
+  &:hover {
+    border: 2px solid #009300;
+  }
+}
+
+.paragraph-rename {
+  text-align: center;
+}

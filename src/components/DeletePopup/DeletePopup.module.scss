@@ -1,0 +1,54 @@
+
+.popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  width: 350px;
+  height: 150px;
+
+  border: 2px solid #005aab;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.delete-text {
+  text-align: center;
+}
+
+.buttons {
+  width: 200px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    padding: 5px;
+    font-size: 16px;
+
+    &:hover {
+      border: 2px solid #009300;
+      cursor: pointer;
+    }
+  }
+
+
+  .danger {
+    border: 2px solid #b60000;
+
+    &:hover {
+      border: 2px solid red;
+      background-color: red;
+      color: white;
+    }
+  }
+}
