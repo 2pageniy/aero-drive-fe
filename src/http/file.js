@@ -8,6 +8,7 @@ import {
 } from "../store/fileReducer";
 import {addUploadFileAction, changeUploadFileAction, showUploaderAction} from "../store/uploadReducer";
 import {hideLoaderAction, showLoaderAction} from "../store/appReducer";
+import { API_URL } from '../constants/apiUrl';
 
 export function getFiles(dirId, sort) {
     return async dispatch => {
@@ -86,7 +87,7 @@ export function uploadFile(file, dirId) {
 }
 
 export async function downloadFile(file) {
-    const response = await fetch(`http://localhost:5000/api/file/download?id=${file.id}`, {
+    const response = await fetch(`${API_URL}/file/download?id=${file.id}`, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
